@@ -1,13 +1,155 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --bg:      #0c0c0f;
+  --bg2:     #141418;
+  --card:    #1a1a20;
+  --card2:   #212128;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --fire:    #f97316;
+  --fire2:   #ef4444;
+  --fire3:   #fbbf24;
+  --green:   #22c55e;
+  --text:    #f0f0f5;
+  --text2:   #8888a0;
+  --text3:   #555568;
+  --radius:  12px;
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Montserrat', sans-serif;
 }
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  /* subtle noise */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+  border: none;
+  transition: opacity 0.15s, transform 0.1s;
+}
+button:active { transform: scale(0.97); }
+button:disabled { opacity: 0.45; cursor: default; }
+
+input { font-family: var(--font-body); }
+a { color: var(--fire); text-decoration: none; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+  50%      { opacity: 0.8; box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Utility classes ── */
+.anim-fadeup  { animation: fadeUp 0.45s ease both; }
+.anim-fadein  { animation: fadeIn 0.3s ease both; }
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.1s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.2s; }
+
+/* ── Shared button styles ── */
+.btn-fire {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #f97316, #ef4444);
+  border: none;
+  border-radius: 100px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(249,115,22,0.3);
+  transition: opacity 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+.btn-fire:hover { opacity: 0.88; box-shadow: 0 10px 28px rgba(249,115,22,0.45); }
+
+.btn-outline-fire {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: rgba(249,115,22,0.1);
+  border: 1px solid rgba(249,115,22,0.35);
+  border-radius: 100px;
+  color: var(--fire);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+}
+.btn-outline-fire:hover { background: rgba(249,115,22,0.2); border-color: rgba(249,115,22,0.55); }
+
+/* ── Card ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+}
+
+/* ── Chip / Badge ── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+}
+
+.dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-green { background: var(--green); animation: pulse 2s infinite; }
+.dot-fire  { background: var(--fire); }
