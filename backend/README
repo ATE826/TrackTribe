@@ -1,74 +1,59 @@
 tracktribe-backend/
-│
-├── cmd/                            # точки входа приложений
-│   └── api/
+│── cmd/
+│   └── server/
 │       └── main.go
-│
-├── internal/                       # приватная бизнес-логика
-│   │
-│   ├── config/                     # загрузка env / config
+
+│── internal/
+│   │── app/
+│   │   └── app.go
+
+│   │── config/
 │   │   └── config.go
-│   │
-│   ├── database/                   # подключение к PostgreSQL / Redis
-│   │   ├── postgres.go
-│   │   └── redis.go
-│   │
-│   ├── models/                     # структуры БД
-│   │   ├── user.go
-│   │   ├── room.go
-│   │   ├── track.go
-│   │   ├── queue.go
-│   │   ├── vote.go
-│   │   ├── subscription.go
-│   │   └── payment.go
-│   │
-│   ├── repository/                 # работа с БД
-│   │   ├── user_repository.go
-│   │   ├── room_repository.go
-│   │   ├── track_repository.go
-│   │   ├── vote_repository.go
-│   │   └── queue_repository.go
-│   │
-│   ├── service/                    # бизнес-логика
-│   │   ├── auth_service.go
+
+│   │── handler/                # HTTP handlers
+│   │   ├── room_handler.go
+│   │   ├── music_handler.go
+│   │   ├── payment_handler.go
+│   │   └── ws_handler.go
+
+│   │── service/               # бизнес логика
 │   │   ├── room_service.go
-│   │   ├── track_service.go
 │   │   ├── queue_service.go
 │   │   ├── vote_service.go
+│   │   ├── music_service.go
 │   │   ├── payment_service.go
-│   │   └── subscription_service.go
-│   │
-│   ├── handler/                    # HTTP API handlers
-│   │   ├── auth_handler.go
-│   │   ├── room_handler.go
-│   │   ├── track_handler.go
-│   │   ├── queue_handler.go
-│   │   ├── vote_handler.go
-│   │   └── payment_handler.go
-│   │
-│   ├── middleware/                 # middleware
-│   │   ├── jwt.go
-│   │   ├── cors.go
-│   │   └── logger.go
-│   │
-│   ├── ws/                         # WebSocket (реалтайм очередь)
+│   │   └── analytics_service.go
+
+│   │── repository/            # работа с БД
+│   │   ├── room_repo.go
+│   │   ├── track_repo.go
+│   │   ├── stats_repo.go
+│   │   └── payment_repo.go
+
+│   │── ws/                    # websocket система
 │   │   ├── hub.go
 │   │   ├── client.go
-│   │   └── room_ws.go
-│   │
-│   └── utils/
-│       ├── jwt.go
-│       ├── qr.go
-│       └── response.go
-│
-├── migrations/                     # SQL миграции
-│   ├── 001_init.up.sql
-│   └── 001_init.down.sql
-│
-├── docs/                           # swagger / api docs
-│
-├── .env
-├── .gitignore
-├── go.mod
-├── go.sum
-└── README.md
+│   │   ├── room_hub.go
+│   │   └── events.go
+
+│   │── models/
+│   │   ├── room.go
+│   │   ├── user.go
+│   │   ├── track.go
+│   │   ├── vote.go
+│   │   └── message.go
+
+│   │── middleware/
+│   │   ├── cors.go
+│   │   ├── rate_limit.go
+│   │   └── premium_check.go
+
+│   │── utils/
+│   │   ├── qr.go
+│   │   ├── random.go
+│   │   └── response.go
+
+│── migrations/
+
+│── .env
+│── go.mod

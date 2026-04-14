@@ -19,7 +19,7 @@ const (
 type Room struct {
 	gorm.Model
 
-	Code     string     `gorm:"not null"`
+	Code     string     `gorm:"index;not null"`
 	Status   RoomStatus `gorm:"not null; default:'active'"`
 	Plan     RoomPlan   `gorm:"not null; default:'free'"`
 	MaxUsers int        `gorm:"default:10"`
