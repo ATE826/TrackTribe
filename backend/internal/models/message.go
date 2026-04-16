@@ -1,10 +1,13 @@
 package models
 
-import "gorm.io/gorm"
+import "time"
 
 type Message struct {
-	gorm.Model
+	SessionID string `json:"session_id"` // Кто отправил сообщение
+	Nickname  string `json:"nickname"`   // Имя отправителя
+	RoomCode  string `json:"room_code"`
 
-	RoomID    string `gorm:"index;not null"`
-	SessionID string `gorm:"not null"`
+	Content string `json:"content"`
+
+	CreatedAt time.Time `json:"created_at"`
 }

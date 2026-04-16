@@ -1,26 +1,16 @@
 package models
 
-import "gorm.io/gorm"
-
-type RoomStatus string
-
-const (
-	RoomActive RoomStatus = "active"
-	RoomEnded  RoomStatus = "ended"
-)
-
-type RoomPlan string
-
-const (
-	PlanFree    RoomPlan = "free"
-	PlanPremium RoomPlan = "premium"
-)
+import "time"
 
 type Room struct {
-	gorm.Model
+	Code      string `json:"code"`
+	IsPremium bool   `json:"is_premium"`
+	MaxUsers  int    `json:"max_users"`
 
-	Code     string     `gorm:"index;not null"`
-	Status   RoomStatus `gorm:"not null; default:'active'"`
-	Plan     RoomPlan   `gorm:"not null; default:'free'"`
-	MaxUsers int        `gorm:"default:10"`
+	HostSessionID string `json:"host_session_id"`
+
+	CreatedAt time.Time `json:"created_at"`
+	ExpireAt  time.Time `json:"expire_at"`
+
+	IsActive bool `json:"is_active"`
 }
