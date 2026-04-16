@@ -1,26 +1,34 @@
 package ws
 
-type Event struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data"`
+import "encoding/json"
+
+// INCOMING (клиент → сервер)
+
+type ClientToServerEvent struct {
+	Type string          `json:"type"` // Тип события (например, "join", "leave", "message", "track_add")
+	Data json.RawMessage `json:"data"` // Данные события (структура зависит от типа)
 }
 
-type ChatEvent struct {
-	Nickname string `json:"nickname"`
-	Text     string `json:"text"`
+// OUTGOING (сервер → клиенты)
+
+type ServerToClientEvent struct {
+	Type string      `json:"type"` // Тип события (например, "user_joined", "user_left", "new_message", "track_added")
+	Data interface{} `json:"data"` // Данные события (структура зависит от типа)
 }
 
-type VoteEvent struct {
-	TrackID string `json:"trackId"`
-	Value   int    `json:"value"` // +1 или -1
-}
+// EVENT TYPES
 
-type SkipEvent struct {
-	TrackID string `json:"trackId"`
-}
+const (
+	EventChatMessage = "chat_message"
 
-type AddTrackEvent struct {
-	Title  string `json:"title"`
-	Artist string `json:"artist"`
-	URL    string `json:"url"`
-}
+	EventAddTrack   = "add_track"
+	EventVoteTrack  = "vote_track"
+	EventSkipTrack  = "skip_track"
+	EventNowPlaying = "now_playing"
+
+	EventUserJoin  = "user_join"
+	EventUserLeave = "user_leave"
+
+	EventRoomState   = "room_state"
+	EventRoomUpgrade = "room_upgrad"
+)

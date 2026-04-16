@@ -1,12 +1,14 @@
 package ws
 
-// Клиент, представляющий подключение пользователя к комнате
+import (
+	"backend/internal/models"
 
-import "github.com/gorilla/websocket"
+	"github.com/gorilla/websocket"
+)
 
 type Client struct {
-	SessionID string
-	Nickname  string
-	RoomID    string
-	Conn      *websocket.Conn
+	Conn *websocket.Conn
+	User *models.User
+
+	Outbound chan []byte // сервер → клиент |chan - для отправки сообщений клиенту
 }
