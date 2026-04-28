@@ -1,74 +1,59 @@
+======== ЗАПУСК ========
+
+(Описано в config.go)
+PORT=9000 MAX_CONNECTIONS=2000 go run main.go
+
+
+
+======== СТРУКТУРА ========
+
 tracktribe-backend/
 │
-├── cmd/                            # точки входа приложений
-│   └── api/
+├── cmd/
+│   └── server/
 │       └── main.go
 │
-├── internal/                       # приватная бизнес-логика
-│   │
-│   ├── config/                     # загрузка env / config
-│   │   └── config.go
-│   │
-│   ├── database/                   # подключение к PostgreSQL / Redis
-│   │   ├── postgres.go
-│   │   └── redis.go
-│   │
-│   ├── models/                     # структуры БД
-│   │   ├── user.go
+├── internal/
+│
+│   ├── app/
+│   │   └── app.go
+│
+│   ├── handler/
+│   │   ├── room_handler.go
+│   │   ├── ws_handler.go
+│   │   ├── music_handler.go
+│   │   └── payment_handler.go
+│
+│   ├── ws/
+│   │   ├── hub_manager.go
+│   │   ├── room_hub.go
+│   │   ├── client.go
+│   │   └── events.go
+│
+│   ├── models/
 │   │   ├── room.go
+│   │   ├── user.go
 │   │   ├── track.go
-│   │   ├── queue.go
-│   │   ├── vote.go
-│   │   ├── subscription.go
-│   │   └── payment.go
-│   │
-│   ├── repository/                 # работа с БД
-│   │   ├── user_repository.go
-│   │   ├── room_repository.go
-│   │   ├── track_repository.go
-│   │   ├── vote_repository.go
-│   │   └── queue_repository.go
-│   │
-│   ├── service/                    # бизнес-логика
-│   │   ├── auth_service.go
+│   │   ├── message.go
+│   │   └── vote.go
+│
+│   ├── service/
 │   │   ├── room_service.go
-│   │   ├── track_service.go
 │   │   ├── queue_service.go
 │   │   ├── vote_service.go
-│   │   ├── payment_service.go
-│   │   └── subscription_service.go
-│   │
-│   ├── handler/                    # HTTP API handlers
-│   │   ├── auth_handler.go
-│   │   ├── room_handler.go
-│   │   ├── track_handler.go
-│   │   ├── queue_handler.go
-│   │   ├── vote_handler.go
-│   │   └── payment_handler.go
-│   │
-│   ├── middleware/                 # middleware
-│   │   ├── jwt.go
+│   │   ├── music_service.go
+│   │   └── payment_service.go
+│
+│   ├── middleware/
 │   │   ├── cors.go
-│   │   └── logger.go
-│   │
-│   ├── ws/                         # WebSocket (реалтайм очередь)
-│   │   ├── hub.go
-│   │   ├── client.go
-│   │   └── room_ws.go
-│   │
+│   │   └── premium_check.go
+│
 │   └── utils/
-│       ├── jwt.go
+│       ├── response.go
 │       ├── qr.go
-│       └── response.go
+│       └── random.go
 │
-├── migrations/                     # SQL миграции
-│   ├── 001_init.up.sql
-│   └── 001_init.down.sql
+├── migrations/   (пока пусто, если нет БД — не используешь)
 │
-├── docs/                           # swagger / api docs
-│
-├── .env
-├── .gitignore
 ├── go.mod
-├── go.sum
-└── README.md
+└── .env

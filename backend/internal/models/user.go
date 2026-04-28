@@ -1,14 +1,9 @@
 package models
 
-import "gorm.io/gorm"
-
 type User struct {
-	gorm.Model
+	SessionID string `json:"session_id"` // уникальный ID соединения
+	Nickname  string `json:"nickname"`   // имя в комнате
+	IsHost    bool   `json:"is_host"`    // создатель комнаты
 
-	RoomID string `gorm:"index;not null"`
-
-	Nickname string `gorm:"not null"`
-	Role     string `gorm:"not null"`
-
-	IsOnline bool `gorm:"default:false"`
+	RoomCode string `json:"room_code"` // текущая комната
 }
